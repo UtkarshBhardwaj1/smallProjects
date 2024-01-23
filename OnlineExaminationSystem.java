@@ -32,3 +32,34 @@ class User
         return fullName;
     }
 }
+
+//question class for creating ques
+class Question
+{
+    private String questionText;
+    private List<String> options; //list to store questions
+    private int correctOptionIndex;
+
+    public Question(String questionText, List<String> options, int correctOptionIndex) //initializing question
+    {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctOptionIndex = correctOptionIndex;
+    }
+
+    public String getQuestionText()
+    {
+        return questionText;
+    }
+
+    public List<String> getOptions()
+    {
+        return options;
+    }
+
+    public int getCorrectOptionIndex()
+    {
+        return correctOptionIndex;
+    }
+}
+
