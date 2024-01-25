@@ -141,6 +141,40 @@ class Question
         }
     }
 
+    private static void startExam(Scanner scanner) //function to start exam
+    {
+        selectedAnswers = new ArrayList<>();
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                remainingTimeInSeconds--;
+                if (remainingTimeInSeconds <= 0) //if timer is completed exam gets auto submitted
+                {
+                    autoSubmit();
+                }
+            }
+        }, 1000, 1000);
+
+        System.out.println("You have 30 minutes to complete the exam."); //timer is set for 30 minutes
+        for (int i = 0; i < questions.size(); i++) //exam operation
+        {
+            Question question = questions.get(i);
+            System.out.println("Question " + (i + 1) + ": " + question.getQuestionText());
+            List<String> options = question.getOptions();
+            for (int j = 0; j < options.size(); j++)
+            {
+                System.out.println((j + 1) + ". " + options.get(j));
+            }
+            System.out.print("Select an answer (1-" + options.size() + "): ");
+            int answer = scanner.nextInt();
+            selectedAnswers.add(answer - 1);
+        }
+        autoSubmit();
+    }
+
 
 
 
