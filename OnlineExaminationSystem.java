@@ -109,5 +109,38 @@ class Question
         }
     }
 
+    private static void showMainMenu(Scanner scanner) //function for main menu with multiple options
+    {
+        System.out.println("Welcome, " + currentUser.getFullName() + "!");
+        System.out.println("1. Start Exam");
+        System.out.println("2. Update Profile");
+        System.out.println("3. Change Password");
+        System.out.println("4. Logout");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        switch (choice)
+        {
+            case 1:
+                startExam(scanner);
+                break;
+            case 2:
+                updateProfile(scanner);
+                break;
+            case 3:
+                changePassword(scanner);
+                break;
+            case 4:
+                logout(scanner);
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                showMainMenu(scanner);
+                break;
+        }
+    }
+
+
 
 
