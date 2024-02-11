@@ -112,6 +112,92 @@ public class MultiUserATM
         }
         return null;
     }
+   private static void performTransactions(Scanner scanner, User user) //function with ATM options
+    {
+        while (true)
+        {
+            System.out.println("\nWelcome, " + user.getUsername() + "!");
+            System.out.println("ATM Menu:");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Transaction History");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Deposit");
+            System.out.println("5. Transfer");
+            System.out.println("6. Logout");
+            System.out.print("Enter your choice: \n");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            System.out.println();
+            switch (choice)
+            {
+                case 1: //to check balance
+                    System.out.println("Your balance: $" + user.getBalance());
+                    break;
+                case 2: //to see transaction history
+                    System.out.println("Transaction History:");
+                    for (String transaction : user.getTransactionHistory())
+                    {
+                        System.out.println(transaction);
+                    }
+                    break;
+                case 3: //for withdrawal
+                    System.out.print("Enter the amount to withdraw: $");
+                    double withdrawAmount = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
+                    boolean withdrawSuccess = user.withdraw(withdrawAmount);
+                    if (withdrawSuccess)
+                    {
+                        System.out.println("Withdrawal successful.");
+                    }
+                    else
+                    {
+                        System.out.println("Invalid withdrawal amount or insufficient balance.");
+                    }
+                    break;
+                case 4: //for deposit
+                    System.out.print("Enter the amount to deposit: $");
+                    double depositAmount = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
+                    user.deposit(depositAmount);
+                    System.out.println("Deposit successful.");
+                    break;
+                case 5: //for transfer
+                    System.out.print("Enter the recipient's username: ");
+                    String recipientUsername = scanner.nextLine();
+                    System.out.print("Enter the amount to transfer: $");
+                    double transferAmount = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
+                    User recipient = findUserByUsername(recipientUsername);
+                    if (recipient != null)
+                    {
+                        user.transfer(recipient, transferAmount);
+                        System.out.println("Transfer successful.");
+                    }
+                    else
+                    {
+                        System.out.println("Recipient not found.");
+                    }
+                    break;
+                case 6: //to logout of system
+                    System.out.println("Logging out...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
 
+    private static User findUserByUsername(String username) //function find user
+    {
+        for (User user : users)
+        {
+            if (user.getUsername().equals(username))
+            {
+                return user;
+            }
+        }
+        return null;
+    }
+            }
  
 
